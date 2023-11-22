@@ -38,7 +38,7 @@ const Landing = () => {
 };
 
 function getImage(id: number) {
-  return { original: `https://picsum.photos/id/${id}/1000/600/` }
+  return { original: `/getocfile?file=${id}` }
 }
 
 const startSet = Array.from({ length: 10 }).map((v, i) => getImage(i + 1));
