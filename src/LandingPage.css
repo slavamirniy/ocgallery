@@ -1,0 +1,114 @@
+body,
+html {
+    background-color: rgb(0, 0, 17);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    /* Предотвращает горизонтальный скролл */
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+@media (max-width: 768px) {
+    .landing-title {
+        font-size: 2rem;
+        /* Меньший размер шрифта для мобильных устройств */
+    }
+    .landing-description {
+        font-size: 1rem;
+    }
+    /* Дополнительные стили для мобильных устройств */
+}
+
+.landing-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    /* Жирное начертание для заголовка */
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.landing-description {
+    font-size: 1.2rem;
+    font-weight: 400;
+    /* Обычное начертание для текста */
+    color: #ffffff;
+    margin-bottom: 30px;
+    padding: 0 10px;
+}
+
+.full-screen-div {
+    display: flex;
+    align-items: center;
+    /* Центрирование по вертикали */
+    justify-content: center;
+    /* Центрирование по горизонтали */
+    height: 100vh;
+    /* Высота во весь экран */
+    width: 100vw;
+    /* Ширина во весь экран */
+    background-color: rgb(0, 0, 17);
+    /* Цвет фона */
+    color: #ffffff;
+    /* Цвет текста */
+    font-size: 24px;
+    /* Размер шрифта */
+    font-family: Arial, sans-serif;
+    /* Шрифт */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Тень вокруг div */
+    box-sizing: border-box;
+    /* Включает padding и border в общую ширину */
+}
+
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.landing-title {
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.landing-description {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 30px;
+}
+
+.icon-container {
+    /* Стиль для контейнера иконок */
+    margin-bottom: 30px;
+}
+
+.gallery-button {
+    font-size: 1rem;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.gallery-button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .landing-title {
+        font-size: 2rem;
+    }
+    .landing-description {
+        font-size: 1rem;
+    }
+}
