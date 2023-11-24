@@ -1,7 +1,7 @@
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import './LandingPage.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // const images = [
 //   {
@@ -37,33 +37,66 @@ const Landing = () => {
   );
 };
 
-function getImage(id: number) {
+async function checkResourceAvailability(url: string): Promise<boolean> {
+  try {
+    const response = await fetch(url);
+    return response.ok;
+  } catch (error) {
+    return false;
+  }
+}
+
+async function findMaxExistingImageId(): Promise<number> {
+  let left = 0;
+  let right = 100;
+  let maxExistingId = -1;
+
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    const imageUrl = getImageUrlById(mid).original;
+
+    const available = await checkResourceAvailability(imageUrl);
+    if (available) {
+      maxExistingId = mid;
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+      console.log("ERR")
+    }
+  }
+
+  return maxExistingId;
+}
+
+function getImageUrlById(id: number) {
+  // if (id > 5)
+  //   return { original: `https://picsum.photos/iasdd/${id}/1000/600/` }
+  // return { original: `https://picsum.photos/id/${id}/1000/600/` }
   return { original: `/getocfile?file=${id}` }
 }
 
-const startSet = Array.from({ length: 10 }).map((v, i) => getImage(i + 1));
-
 export default function App() {
-  const [images, setImages] = useState(startSet);
-  const [nowIndex, setIndex] = useState(0);
-  const [stop, setStop] = useState(false);
+  const [images, setImages] = useState<{ original: string }[]>([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const max = await findMaxExistingImageId();
+      console.log(max)
+      const imageUrls = Array.from({ length: max }, (_, i) => getImageUrlById(i));
+      setImages(imageUrls);
+    };
+
+    fetchImages();
+  }, []);
   return <>
     <Landing />
     <div id="gallery" className="full-screen-div">
       <ImageGallery
         items={images}
         showPlayButton={false}
-        lazyLoad={false}
-        onSlide={(i) => {
-          setIndex(i)
-          if ((i + 2) > images.length) {
-            setImages(imgs => [...imgs, ...(stop ? [] : Array.from({ length: 10 }).map((v, i) => getImage(imgs.length - 1 + i)))])
-          }
-        }}
-        onImageError={() => {
-          console.log("ERR")
-          setImages(imgs => imgs.slice(0, nowIndex - 1));
-          setStop(true);
+        lazyLoad={true}
+        onImageError={(e) => {
+          console.log(e)
         }}
       />
     </div>
