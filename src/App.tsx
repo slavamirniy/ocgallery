@@ -2,6 +2,7 @@ import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import './LandingPage.css';
 import { useEffect, useState } from "react";
+import { model, oneclick, renderfin, shop } from "./images";
 
 // const images = [
 //   {
@@ -29,9 +30,6 @@ const Landing = () => {
       <p className="landing-description">
         Откройте новые горизонты с нашими передовыми решениями для конвертации и рендеринга.
       </p>
-      <div className="icon-container">
-        {/* Тут можно добавить иконки для 3ds Max, Unity, Unreal Engine */}
-      </div>
       <button className="gallery-button" onClick={scrollToGallery}>Посмотреть галерею работ</button>
     </div>
   );
@@ -90,6 +88,13 @@ export default function App() {
   }, []);
   return <>
     <Landing />
+    <h1 className="landing-title" style={{textAlign:'center'}}>Как это работает?</h1>
+    <div className="infos-container">
+        <InfoBlock image={model} title="Ваши 3D модели" description="Мы получаем ваши 3D модели и автоматически загружаем их на веб-сайт стоковых 3D-моделей, где они будут доступны для покупки." />
+        <InfoBlock image={oneclick} title="OneClick Converter" description="Мы используем OneClick Converter для преобразования 3D-моделей из формата 3ds max в форматы, подходящие для Unity и Unreal Engine. Это быстрый и качественный процесс." />
+        <InfoBlock image={renderfin} title="Распределенный рендер" description="Мы используем децентрализованную систему компьютеров для рендеринга ваших 3D-моделей с высоким качеством и эффективно используем ресурсы нескольких компьютеров." />
+        <InfoBlock image={shop} title="Автозагрузка на стоки" description="Ваши 3D-модели автоматически загружаются на стоки, каждая модель получит описание и галерею изображений. Мы также можем продавать рендеры отдельно как картинки на фотостоках." />
+      </div>
     <div id="gallery" className="full-screen-div">
       <ImageGallery
         items={images}
@@ -101,4 +106,12 @@ export default function App() {
       />
     </div>
   </>
+}
+
+function InfoBlock({ image, title, description }: { image: string, title: string, description: string }) {
+  return <div className="info-block">
+    <img style={{width: '120px'}} src={"data:image/png;base64, " + image} />
+    <h1 className="info-block_text">{title}</h1>
+    <p className="info-block_description">{description}</p>
+  </div>
 }
